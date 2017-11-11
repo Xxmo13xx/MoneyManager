@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testSaveData>
+  <Accounts>
+    <Account Name="Test Account" Balance="1000.0" Type="Normal"/>
+    <Account Name="Test Savings Account" Balance="1000.0" Type="Savings"/>
+    <Account Name="Test Checking Account" Balance="1000.0" Type="Checkings"/>
+  </Accounts>
+  <Payments>
+    <Bills>
+      <Bill Name="Test Bill" Balance="4000.0" minPayment="100.0"/>
+      <Bill Name="Test Bill 2" Balance="3000.0" minPayment="150.0"/>
+    </Bills>
+    <Expenses>
+      <Expense Name="Test Expense" Balance="150.0" minPayment="150.0"/>
+      <Expense Name="Test Expense 2" Balance="100.0" minPayment="100.0"/>
+    </Expenses>
+    <Loans>
+      <Loan Name="Test Loan" Balance="13400.0" minPayment="250.0" interestRate="0.08"/>
+    </Loans>
+    <creditCards>
+      <creditCard Name="Test Credit" Balance="2750.0" minPayment="52.0" interestRate="0.05"/>
+    </creditCards>
+  </Payments>
+</testSaveData>
