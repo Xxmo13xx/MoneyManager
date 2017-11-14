@@ -1,3 +1,4 @@
+package modelPackage;
 public class Payment {
     String name;
     double balance;

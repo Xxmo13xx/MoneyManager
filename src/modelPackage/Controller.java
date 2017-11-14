@@ -1,3 +1,4 @@
+package modelPackage;
 import java.util.*;
 import java.io.*;
 import org.dom4j.*;
@@ -103,7 +104,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
+    
 
     public void createTestOuputDocument(){
 
@@ -200,7 +201,6 @@ public class Controller {
         }
     }
 
-
     public void loadData(String path){
 
         try {
@@ -259,9 +259,10 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
-
-
+    
+    public ArrayList<Account> getAccountsArray(){
+    	return this.accountsArray;
+    }
 
     public Account getAccount(int index){
         return accountsArray.get(index);
@@ -461,12 +462,12 @@ public class Controller {
     private int compareBalances(Debt a, Debt b){
     	return Double.compare(a.getBalance(), b.getBalance());	
     }
-    
-    
+       
     public static void main(String[] args){
     	Controller testOutput = new Controller();
     	testOutput.createTestOuputDocument();
     }
 
+    
 }
 

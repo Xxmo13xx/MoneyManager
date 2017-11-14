@@ -1,3 +1,4 @@
+package modelPackage;
 public class Debt extends Payment {
 	
 	double interestRate;

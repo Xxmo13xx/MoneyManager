@@ -23,18 +23,25 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 
 public class testCardLayout {
 
 	private JFrame frame;
+	private final JLabel mainMenuTitleLabel = new JLabel("Money Manager");
+	private JTextField accountsFileTextBox;
+	private JTextField budgetFileTextBox;
+	private JTextField debtFileTextField;
+	private JTable table;
 	private JTextField textField;
 	private JTextField textField_1;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private final JRadioButton rdbtnNewRadioButton = new JRadioButton("Savings");
 	private JTextField textField_2;
-	private final JLabel lblNewLabel_1 = new JLabel("Money Manager");
-	private JTextField txtPlaceHolderFor;
-	private JTextField txtPlaceHolderFor_1;
-	private JTextField txtPlaceHolderFor_2;
-	private JTable table;
+	private JTextField newAccountNameField;
+	private JTextField newAccountBalanceField;
+	private JTextField newSavingsGoalField;
 
 	/**
 	 * Launch the application.
@@ -72,6 +79,10 @@ public class testCardLayout {
 		CardLayout cl = (CardLayout)(cards.getLayout());
 		
 		
+		/*
+		 * Main Menu Panel
+		 * 
+		 */
 		JPanel mainMenuPanel = new JPanel();
 		
 		cards.add(mainMenuPanel, "mainMenu");
@@ -81,11 +92,11 @@ public class testCardLayout {
 		gbl_mainMenuPanel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_mainMenuPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		mainMenuPanel.setLayout(gbl_mainMenuPanel);
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 3;
-		gbc_lblNewLabel_1.gridy = 0;
-		mainMenuPanel.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		GridBagConstraints gbc_mainMenuTitleLabel = new GridBagConstraints();
+		gbc_mainMenuTitleLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_mainMenuTitleLabel.gridx = 3;
+		gbc_mainMenuTitleLabel.gridy = 0;
+		mainMenuPanel.add(mainMenuTitleLabel, gbc_mainMenuTitleLabel);
 		
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut_1 = new GridBagConstraints();
@@ -94,85 +105,86 @@ public class testCardLayout {
 		gbc_verticalStrut_1.gridy = 1;
 		mainMenuPanel.add(verticalStrut_1, gbc_verticalStrut_1);
 		
-		JLabel lblNewLabel_2 = new JLabel("Accounts");
-		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_2.gridx = 1;
-		gbc_lblNewLabel_2.gridy = 2;
-		mainMenuPanel.add(lblNewLabel_2, gbc_lblNewLabel_2);
+		JLabel mainMenuAccountsLabel = new JLabel("Accounts");
+		GridBagConstraints gbc_mainMenuAccountsLabel = new GridBagConstraints();
+		gbc_mainMenuAccountsLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_mainMenuAccountsLabel.gridx = 1;
+		gbc_mainMenuAccountsLabel.gridy = 2;
+		mainMenuPanel.add(mainMenuAccountsLabel, gbc_mainMenuAccountsLabel);
 		
-		txtPlaceHolderFor = new JTextField();
-		txtPlaceHolderFor.setText("place holder for file chooser");
-		GridBagConstraints gbc_txtPlaceHolderFor = new GridBagConstraints();
-		gbc_txtPlaceHolderFor.gridwidth = 3;
-		gbc_txtPlaceHolderFor.insets = new Insets(0, 0, 5, 5);
-		gbc_txtPlaceHolderFor.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtPlaceHolderFor.gridx = 2;
-		gbc_txtPlaceHolderFor.gridy = 2;
-		mainMenuPanel.add(txtPlaceHolderFor, gbc_txtPlaceHolderFor);
-		txtPlaceHolderFor.setColumns(10);
+		accountsFileTextBox = new JTextField();
+		accountsFileTextBox.setText("place holder for file chooser");
+		GridBagConstraints gbc_accountsFileTextBox = new GridBagConstraints();
+		gbc_accountsFileTextBox.gridwidth = 3;
+		gbc_accountsFileTextBox.insets = new Insets(0, 0, 5, 5);
+		gbc_accountsFileTextBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_accountsFileTextBox.gridx = 2;
+		gbc_accountsFileTextBox.gridy = 2;
+		mainMenuPanel.add(accountsFileTextBox, gbc_accountsFileTextBox);
+		accountsFileTextBox.setColumns(10);
 		
-		JButton btnNewButton_3 = new JButton("Edit Accounts");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton mainMenuEditAccountsButton = new JButton("Edit Accounts");
+		mainMenuEditAccountsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cl.show(cards, "editAccounts");
 			}
 		});
+		
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_3.gridx = 5;
 		gbc_btnNewButton_3.gridy = 2;
-		mainMenuPanel.add(btnNewButton_3, gbc_btnNewButton_3);
+		mainMenuPanel.add(mainMenuEditAccountsButton, gbc_btnNewButton_3);
 		
-		JLabel lblBudget_1 = new JLabel("Budget");
-		GridBagConstraints gbc_lblBudget_1 = new GridBagConstraints();
-		gbc_lblBudget_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblBudget_1.gridx = 1;
-		gbc_lblBudget_1.gridy = 3;
-		mainMenuPanel.add(lblBudget_1, gbc_lblBudget_1);
+		JLabel mainMenuBudgetLabel = new JLabel("Budget");
+		GridBagConstraints gbc_mainMenuBudgetLabel = new GridBagConstraints();
+		gbc_mainMenuBudgetLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_mainMenuBudgetLabel.gridx = 1;
+		gbc_mainMenuBudgetLabel.gridy = 3;
+		mainMenuPanel.add(mainMenuBudgetLabel, gbc_mainMenuBudgetLabel);
 		
-		txtPlaceHolderFor_1 = new JTextField();
-		txtPlaceHolderFor_1.setText("place holder for file chooser");
-		GridBagConstraints gbc_txtPlaceHolderFor_1 = new GridBagConstraints();
-		gbc_txtPlaceHolderFor_1.gridwidth = 3;
-		gbc_txtPlaceHolderFor_1.insets = new Insets(0, 0, 5, 5);
-		gbc_txtPlaceHolderFor_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtPlaceHolderFor_1.gridx = 2;
-		gbc_txtPlaceHolderFor_1.gridy = 3;
-		mainMenuPanel.add(txtPlaceHolderFor_1, gbc_txtPlaceHolderFor_1);
-		txtPlaceHolderFor_1.setColumns(10);
+		budgetFileTextBox = new JTextField();
+		budgetFileTextBox.setText("place holder for file chooser");
+		GridBagConstraints gbc_budgetFileTextBox = new GridBagConstraints();
+		gbc_budgetFileTextBox.gridwidth = 3;
+		gbc_budgetFileTextBox.insets = new Insets(0, 0, 5, 5);
+		gbc_budgetFileTextBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_budgetFileTextBox.gridx = 2;
+		gbc_budgetFileTextBox.gridy = 3;
+		mainMenuPanel.add(budgetFileTextBox, gbc_budgetFileTextBox);
+		budgetFileTextBox.setColumns(10);
 		
-		JButton btnEditBudgets = new JButton("Edit Budgets");
-		GridBagConstraints gbc_btnEditBudgets = new GridBagConstraints();
-		gbc_btnEditBudgets.insets = new Insets(0, 0, 5, 0);
-		gbc_btnEditBudgets.gridx = 5;
-		gbc_btnEditBudgets.gridy = 3;
-		mainMenuPanel.add(btnEditBudgets, gbc_btnEditBudgets);
+		JButton mainMenuEditBudget = new JButton("Edit Budgets");
+		GridBagConstraints gbc_mainMenuEditBudget = new GridBagConstraints();
+		gbc_mainMenuEditBudget.insets = new Insets(0, 0, 5, 0);
+		gbc_mainMenuEditBudget.gridx = 5;
+		gbc_mainMenuEditBudget.gridy = 3;
+		mainMenuPanel.add(mainMenuEditBudget, gbc_mainMenuEditBudget);
 		
-		JLabel lblDebts = new JLabel("Debts");
-		GridBagConstraints gbc_lblDebts = new GridBagConstraints();
-		gbc_lblDebts.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDebts.gridx = 1;
-		gbc_lblDebts.gridy = 4;
-		mainMenuPanel.add(lblDebts, gbc_lblDebts);
+		JLabel mainMenuDebtsLabel = new JLabel("Debts");
+		GridBagConstraints gbc_mainMenuDebtsLabel = new GridBagConstraints();
+		gbc_mainMenuDebtsLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_mainMenuDebtsLabel.gridx = 1;
+		gbc_mainMenuDebtsLabel.gridy = 4;
+		mainMenuPanel.add(mainMenuDebtsLabel, gbc_mainMenuDebtsLabel);
 		
-		txtPlaceHolderFor_2 = new JTextField();
-		txtPlaceHolderFor_2.setText("place holder for file chooser");
-		GridBagConstraints gbc_txtPlaceHolderFor_2 = new GridBagConstraints();
-		gbc_txtPlaceHolderFor_2.gridwidth = 3;
-		gbc_txtPlaceHolderFor_2.insets = new Insets(0, 0, 5, 5);
-		gbc_txtPlaceHolderFor_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtPlaceHolderFor_2.gridx = 2;
-		gbc_txtPlaceHolderFor_2.gridy = 4;
-		mainMenuPanel.add(txtPlaceHolderFor_2, gbc_txtPlaceHolderFor_2);
-		txtPlaceHolderFor_2.setColumns(10);
+		debtFileTextField = new JTextField();
+		debtFileTextField.setText("place holder for file chooser");
+		GridBagConstraints gbc_debtFileTextField = new GridBagConstraints();
+		gbc_debtFileTextField.gridwidth = 3;
+		gbc_debtFileTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_debtFileTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_debtFileTextField.gridx = 2;
+		gbc_debtFileTextField.gridy = 4;
+		mainMenuPanel.add(debtFileTextField, gbc_debtFileTextField);
+		debtFileTextField.setColumns(10);
 		
-		JButton btnEditDebts = new JButton("Edit Debts");
-		GridBagConstraints gbc_btnEditDebts = new GridBagConstraints();
-		gbc_btnEditDebts.insets = new Insets(0, 0, 5, 0);
-		gbc_btnEditDebts.gridx = 5;
-		gbc_btnEditDebts.gridy = 4;
-		mainMenuPanel.add(btnEditDebts, gbc_btnEditDebts);
+		JButton mainMenuEditDebts = new JButton("Edit Debts");
+		GridBagConstraints gbc_mainMenuEditDebts = new GridBagConstraints();
+		gbc_mainMenuEditDebts.insets = new Insets(0, 0, 5, 0);
+		gbc_mainMenuEditDebts.gridx = 5;
+		gbc_mainMenuEditDebts.gridy = 4;
+		mainMenuPanel.add(mainMenuEditDebts, gbc_mainMenuEditDebts);
 		
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
@@ -189,14 +201,14 @@ public class testCardLayout {
 		gbc_panel_3.gridy = 6;
 		mainMenuPanel.add(panel_3, gbc_panel_3);
 		
-		JButton btnRunAnIteration = new JButton("Run an Iteration");
-		panel_3.add(btnRunAnIteration);
+		JButton runAnIterationButton = new JButton("Run an Iteration");
+		panel_3.add(runAnIterationButton);
 		
-		JButton btnRunXIterations = new JButton("Run x Iterations");
-		panel_3.add(btnRunXIterations);
+		JButton runXIterationsButton = new JButton("Run x Iterations");
+		panel_3.add(runXIterationsButton);
 		
-		JButton btnRunAllIterations = new JButton("Run all Iterations");
-		panel_3.add(btnRunAllIterations);
+		JButton runAllIterationsButton = new JButton("Run all Iterations");
+		panel_3.add(runAllIterationsButton);
 		
 		frame.getContentPane().add(cards);
 		
@@ -229,6 +241,11 @@ public class testCardLayout {
 		accountsEditPanel.add(panel);
 		
 		JButton button = new JButton("Add Account");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cl.show(cards, "addAccounts");
+			}
+		});
 		panel.add(button);
 		
 		JButton button_1 = new JButton("Edit Account");
@@ -246,39 +263,267 @@ public class testCardLayout {
 		panel.add(button_3);
 		cards.add(accountsEditPanel, "editAccounts");
 		
-		JPanel panel_2 = new JPanel();
-		cards.add(panel_2, "name_1510007681521237000");
-		panel_2.setLayout(new GridLayout(3, 0, 0, 0));
+		JPanel addAccountPanel = new JPanel();
+		cards.add(addAccountPanel, "name_815528071229515");
+		addAccountPanel.setLayout(new BoxLayout(addAccountPanel, BoxLayout.Y_AXIS));
 		
-		JLabel lblNewLabel = new JLabel("Account");
-		panel_2.add(lblNewLabel);
+		JLabel lblAddAccountPage = new JLabel("Add Account Page");
+		lblAddAccountPage.setAlignmentX(Component.CENTER_ALIGNMENT);
+		addAccountPanel.add(lblAddAccountPage);
+		
+		JPanel panel_1 = new JPanel();
+		addAccountPanel.add(panel_1);
+		GridBagLayout gbl_panel_1 = new GridBagLayout();
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 140, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_1.setLayout(gbl_panel_1);
+		
+		JLabel lblAccountName = new JLabel("Account Name");
+		GridBagConstraints gbc_lblAccountName = new GridBagConstraints();
+		gbc_lblAccountName.gridwidth = 2;
+		gbc_lblAccountName.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAccountName.gridx = 2;
+		gbc_lblAccountName.gridy = 0;
+		panel_1.add(lblAccountName, gbc_lblAccountName);
 		
 		textField = new JTextField();
-		panel_2.add(textField);
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridwidth = 2;
+		gbc_textField.insets = new Insets(0, 0, 5, 0);
+		gbc_textField.gridx = 4;
+		gbc_textField.gridy = 0;
+		panel_1.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_2.add(btnNewButton);
-		
-		JLabel lblBudget = new JLabel("Budget");
-		panel_2.add(lblBudget);
+		JLabel lblAccountBalance = new JLabel("Account Balance");
+		GridBagConstraints gbc_lblAccountBalance = new GridBagConstraints();
+		gbc_lblAccountBalance.gridwidth = 2;
+		gbc_lblAccountBalance.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAccountBalance.gridx = 2;
+		gbc_lblAccountBalance.gridy = 1;
+		panel_1.add(lblAccountBalance, gbc_lblAccountBalance);
 		
 		textField_1 = new JTextField();
-		panel_2.add(textField_1);
 		textField_1.setColumns(10);
+		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
+		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.gridwidth = 2;
+		gbc_textField_1.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_1.gridx = 4;
+		gbc_textField_1.gridy = 1;
+		panel_1.add(textField_1, gbc_textField_1);
 		
-		JButton btnNewButton_1 = new JButton("New button");
-		panel_2.add(btnNewButton_1);
+		JLabel lblAccountType = new JLabel("Account Type");
+		GridBagConstraints gbc_lblAccountType = new GridBagConstraints();
+		gbc_lblAccountType.gridwidth = 2;
+		gbc_lblAccountType.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAccountType.gridx = 2;
+		gbc_lblAccountType.gridy = 2;
+		panel_1.add(lblAccountType, gbc_lblAccountType);
 		
-		JLabel lblDebt = new JLabel("Debt");
-		panel_2.add(lblDebt);
+		JRadioButton rdbtnChecking = new JRadioButton("Checking");
+		buttonGroup.add(rdbtnChecking);
+		GridBagConstraints gbc_rdbtnChecking = new GridBagConstraints();
+		gbc_rdbtnChecking.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnChecking.anchor = GridBagConstraints.WEST;
+		gbc_rdbtnChecking.gridx = 4;
+		gbc_rdbtnChecking.gridy = 2;
+		panel_1.add(rdbtnChecking, gbc_rdbtnChecking);
+		GridBagConstraints gbc_rdbtnNewRadioButton = new GridBagConstraints();
+		gbc_rdbtnNewRadioButton.insets = new Insets(0, 0, 5, 0);
+		gbc_rdbtnNewRadioButton.gridx = 5;
+		gbc_rdbtnNewRadioButton.gridy = 2;
+		buttonGroup.add(rdbtnNewRadioButton);
+		panel_1.add(rdbtnNewRadioButton, gbc_rdbtnNewRadioButton);
+		
+		JLabel lblSavingsGoal = new JLabel("Savings Goal");
+		GridBagConstraints gbc_lblSavingsGoal = new GridBagConstraints();
+		gbc_lblSavingsGoal.gridwidth = 2;
+		gbc_lblSavingsGoal.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSavingsGoal.gridx = 2;
+		gbc_lblSavingsGoal.gridy = 3;
+		panel_1.add(lblSavingsGoal, gbc_lblSavingsGoal);
 		
 		textField_2 = new JTextField();
-		panel_2.add(textField_2);
+		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
+		gbc_textField_2.insets = new Insets(0, 0, 5, 0);
+		gbc_textField_2.gridwidth = 2;
+		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.gridx = 4;
+		gbc_textField_2.gridy = 3;
+		panel_1.add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		panel_2.add(btnNewButton_2);
+		JPanel panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.gridwidth = 4;
+		gbc_panel_2.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 2;
+		gbc_panel_2.gridy = 4;
+		panel_1.add(panel_2, gbc_panel_2);
+		
+		JButton btnAddAccount = new JButton("Add Account");
+		panel_2.add(btnAddAccount);
+		
+		JButton btnBackToMain = new JButton("Back to accounts");
+		btnBackToMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl.show(cards, "editAccounts");
+			}
+		});
+		panel_2.add(btnBackToMain);
+		
+		cards.add(addAccountPanel, "addAccounts");
+		
+		JPanel editAccountPanel = new JPanel();
+		cards.add(editAccountPanel, "name_862120942120654");
+		editAccountPanel.setLayout(new BoxLayout(editAccountPanel, BoxLayout.Y_AXIS));
+		
+		JLabel editAccountsTitleLabel = new JLabel("Edit Accounts Page");
+		editAccountPanel.add(editAccountsTitleLabel);
+		
+		JPanel panel_4 = new JPanel();
+		editAccountPanel.add(panel_4);
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[]{0, 0, 0, 0, 140, 0, 0};
+		gbl_panel_4.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_4.setLayout(gbl_panel_4);
+		
+		JLabel lblOriginal = new JLabel("Original");
+		GridBagConstraints gbc_lblOriginal = new GridBagConstraints();
+		gbc_lblOriginal.insets = new Insets(0, 0, 5, 5);
+		gbc_lblOriginal.gridx = 4;
+		gbc_lblOriginal.gridy = 0;
+		panel_4.add(lblOriginal, gbc_lblOriginal);
+		
+		JLabel lblNewValues = new JLabel("New Values");
+		GridBagConstraints gbc_lblNewValues = new GridBagConstraints();
+		gbc_lblNewValues.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewValues.gridx = 5;
+		gbc_lblNewValues.gridy = 0;
+		panel_4.add(lblNewValues, gbc_lblNewValues);
+		
+		JLabel label = new JLabel("Account Name");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.gridwidth = 2;
+		gbc_label.insets = new Insets(0, 0, 5, 5);
+		gbc_label.gridx = 2;
+		gbc_label.gridy = 1;
+		panel_4.add(label, gbc_label);
+		
+		JLabel originalAccountNameLabel = new JLabel("USAA Credit");
+		GridBagConstraints gbc_originalAccountNameLabel = new GridBagConstraints();
+		gbc_originalAccountNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_originalAccountNameLabel.gridx = 4;
+		gbc_originalAccountNameLabel.gridy = 1;
+		panel_4.add(originalAccountNameLabel, gbc_originalAccountNameLabel);
+		
+		newAccountNameField = new JTextField();
+		newAccountNameField.setColumns(10);
+		GridBagConstraints gbc_newAccountNameField = new GridBagConstraints();
+		gbc_newAccountNameField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_newAccountNameField.insets = new Insets(0, 0, 5, 0);
+		gbc_newAccountNameField.gridx = 5;
+		gbc_newAccountNameField.gridy = 1;
+		panel_4.add(newAccountNameField, gbc_newAccountNameField);
+		
+		JLabel label_1 = new JLabel("Account Balance");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.gridwidth = 2;
+		gbc_label_1.insets = new Insets(0, 0, 5, 5);
+		gbc_label_1.gridx = 2;
+		gbc_label_1.gridy = 2;
+		panel_4.add(label_1, gbc_label_1);
+		
+		JLabel originalAccountBalanceLabel = new JLabel("1000.00");
+		GridBagConstraints gbc_originalAccountBalanceLabel = new GridBagConstraints();
+		gbc_originalAccountBalanceLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_originalAccountBalanceLabel.gridx = 4;
+		gbc_originalAccountBalanceLabel.gridy = 2;
+		panel_4.add(originalAccountBalanceLabel, gbc_originalAccountBalanceLabel);
+		
+		newAccountBalanceField = new JTextField();
+		newAccountBalanceField.setColumns(10);
+		GridBagConstraints gbc_newAccountBalanceField = new GridBagConstraints();
+		gbc_newAccountBalanceField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_newAccountBalanceField.insets = new Insets(0, 0, 5, 0);
+		gbc_newAccountBalanceField.gridx = 5;
+		gbc_newAccountBalanceField.gridy = 2;
+		panel_4.add(newAccountBalanceField, gbc_newAccountBalanceField);
+		
+		JLabel label_2 = new JLabel("Account Type");
+		GridBagConstraints gbc_label_2 = new GridBagConstraints();
+		gbc_label_2.gridwidth = 2;
+		gbc_label_2.insets = new Insets(0, 0, 5, 5);
+		gbc_label_2.gridx = 2;
+		gbc_label_2.gridy = 3;
+		panel_4.add(label_2, gbc_label_2);
+		
+		JRadioButton radioButton = new JRadioButton("Checking");
+		GridBagConstraints gbc_radioButton = new GridBagConstraints();
+		gbc_radioButton.anchor = GridBagConstraints.WEST;
+		gbc_radioButton.insets = new Insets(0, 0, 5, 5);
+		gbc_radioButton.gridx = 4;
+		gbc_radioButton.gridy = 3;
+		panel_4.add(radioButton, gbc_radioButton);
+		
+		JRadioButton radioButton_1 = new JRadioButton("Savings");
+		GridBagConstraints gbc_radioButton_1 = new GridBagConstraints();
+		gbc_radioButton_1.insets = new Insets(0, 0, 5, 0);
+		gbc_radioButton_1.gridx = 5;
+		gbc_radioButton_1.gridy = 3;
+		panel_4.add(radioButton_1, gbc_radioButton_1);
+		
+		JLabel label_3 = new JLabel("Savings Goal");
+		GridBagConstraints gbc_label_3 = new GridBagConstraints();
+		gbc_label_3.gridwidth = 2;
+		gbc_label_3.insets = new Insets(0, 0, 5, 5);
+		gbc_label_3.gridx = 2;
+		gbc_label_3.gridy = 4;
+		panel_4.add(label_3, gbc_label_3);
+		
+		JLabel originalSavingsGoalLabel = new JLabel("1500.00");
+		GridBagConstraints gbc_originalSavingsGoalLabel = new GridBagConstraints();
+		gbc_originalSavingsGoalLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_originalSavingsGoalLabel.gridx = 4;
+		gbc_originalSavingsGoalLabel.gridy = 4;
+		panel_4.add(originalSavingsGoalLabel, gbc_originalSavingsGoalLabel);
+		
+		newSavingsGoalField = new JTextField();
+		newSavingsGoalField.setColumns(10);
+		GridBagConstraints gbc_newSavingsGoalField = new GridBagConstraints();
+		gbc_newSavingsGoalField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_newSavingsGoalField.insets = new Insets(0, 0, 5, 0);
+		gbc_newSavingsGoalField.gridx = 5;
+		gbc_newSavingsGoalField.gridy = 4;
+		panel_4.add(newSavingsGoalField, gbc_newSavingsGoalField);
+		
+		JPanel panel_5 = new JPanel();
+		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
+		gbc_panel_5.fill = GridBagConstraints.BOTH;
+		gbc_panel_5.gridwidth = 4;
+		gbc_panel_5.gridx = 2;
+		gbc_panel_5.gridy = 5;
+		panel_4.add(panel_5, gbc_panel_5);
+		
+		JButton editAccountsPanelSaveChangesButton = new JButton("Save Changes");
+		editAccountsPanelSaveChangesButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Save Changes to their variable
+				cl.show(cards, "editAccounts");
+				
+			}
+		});
+		panel_5.add(editAccountsPanelSaveChangesButton);
+		
+		JButton editAccountsBackToAccountsButton = new JButton("Back to accounts");
+		panel_5.add(editAccountsBackToAccountsButton);
 		
 		
 	}

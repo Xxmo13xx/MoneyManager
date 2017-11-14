@@ -1,3 +1,4 @@
+package modelPackage;
 
 public class CreditCard extends Debt {
 	

@@ -1,3 +1,4 @@
+package modelPackage;
 public class Account {
 
     String type;

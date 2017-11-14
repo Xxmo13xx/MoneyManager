@@ -1,3 +1,4 @@
+package modelPackage;
 public class Bill extends Payment {
 	
 	public Bill(String name, double amount, double minimumPayment){

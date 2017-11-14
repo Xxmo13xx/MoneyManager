@@ -1,3 +1,4 @@
+package modelPackage;
 import org.junit.*;
 
 import junit.framework.*;

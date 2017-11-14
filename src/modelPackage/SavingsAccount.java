@@ -1,3 +1,4 @@
+package modelPackage;
 public class SavingsAccount extends Account {
 
     boolean savingsGoalMet;
