@@ -7,19 +7,17 @@ import org.dom4j.io.*;
 public class Controller {
 
     ArrayList<Account> accountsArray;
-    ArrayList<Loan> loanArray;
-    ArrayList<CreditCard> creditCardArray;
     ArrayList<Bill> billsArray;
     ArrayList<Expense> expenseArray;
-    ArrayList<Debt> orderedDebts;
+    ArrayList<Debt> orderedDebtArray;
 
     public Controller() {
         accountsArray = new ArrayList<Account>();
-        loanArray = new ArrayList<Loan>();
-        creditCardArray = new ArrayList<CreditCard>();
+        
+        
         billsArray = new ArrayList<Bill>();
         expenseArray = new ArrayList<Expense>();
-        orderedDebts = new ArrayList<Debt>();
+        orderedDebtArray = new ArrayList<Debt>();
         
        
     }
@@ -70,31 +68,26 @@ public class Controller {
     			}
     		}
     		
-    		// check if there are any loans
-    		// if there are then iterate through them and save them
-    		Element loansElement = paymentsElement.addElement("Loans");
-    		if(this.loanArray.size() > 0){
-    			for(Loan tempLoan: this.loanArray){
-    				loansElement.addElement("Loan")
-    						.addAttribute("Name", tempLoan.getName())
-    						.addAttribute("Balance", Double.toString(tempLoan.getBalance()))
-    						.addAttribute("minPayment", Double.toString(tempLoan.getMinimumPayment()))
-    						.addAttribute("interestRate", Double.toString(tempLoan.getInterestRate()));
+    		Element debtsElement = paymentsElement.addElement("Debts");
+    		if (this.orderedDebtArray.size() > 0){
+    			for (Debt tempDebt : this.orderedDebtArray){
+    				if(tempDebt.getType() == "CreditCard"){
+    					debtsElement.addElement("creditCard")
+    						.addAttribute("Name", tempDebt.getName())
+    						.addAttribute("Balance",  Double.toString(tempDebt.getBalance()))
+    						.addAttribute("minPayment", Double.toString(tempDebt.getMinimumPayment()))
+    						.addAttribute("interestRate", Double.toString(tempDebt.getInterestRate()));
+    				} else if (tempDebt.getType() == "Loan"){
+    					debtsElement.addElement("Loan")
+    					.addAttribute("Name", tempDebt.getName())
+						.addAttribute("Balance",  Double.toString(tempDebt.getBalance()))
+						.addAttribute("minPayment", Double.toString(tempDebt.getMinimumPayment()))
+						.addAttribute("interestRate", Double.toString(tempDebt.getInterestRate()));
+    				}
     			}
     		}
     		
-    		// check if there are any credit cards
-    		// if there are then iterate through them and save them
-    		Element creditCardsElement = paymentsElement.addElement("creditCards");
-    		if(this.creditCardArray.size() > 0){
-    			for(CreditCard tempCard : this.creditCardArray){
-    				creditCardsElement.addElement("creditCard")
-    						.addAttribute("Name", tempCard.getName())
-    						.addAttribute("Balance", Double.toString(tempCard.getBalance()))
-    						.addAttribute("minPayment", Double.toString(tempCard.getMinimumPayment()))
-    						.addAttribute("interestRate", Double.toString(tempCard.getInterestRate()));
-    			}
-    		}
+    		
     		writer.write(document);
     		writer.flush();
     		
@@ -145,28 +138,28 @@ public class Controller {
             		.addAttribute("Balance", "100.00")
             		.addAttribute("minPayment", "100.00");
             
-            Element loansElement = paymentsElement.addElement("Loans");
-            loansElement.addElement("Loan")
+            Element debtsElement = paymentsElement.addElement("Debts");
+            debtsElement.addElement("Loan")
             			.addAttribute("Name", "Test Loan 1")
             			.addAttribute("Balance", "1400.00")
             			.addAttribute("minPayment", "650.00")
             			.addAttribute("interestRate", ".08");
             
-            loansElement.addElement("Loan")
+            debtsElement.addElement("Loan")
 						.addAttribute("Name", "Test Loan 2")
 						.addAttribute("Balance", "3400.00")
 						.addAttribute("minPayment", "350.00")
 						.addAttribute("interestRate", ".08");
             
             
-            Element creditCardElement = paymentsElement.addElement("creditCards");
-            creditCardElement.addElement("creditCard")
+            
+            debtsElement.addElement("creditCard")
             			.addAttribute("Name", "Test Credit Card 1")
             			.addAttribute("Balance", "700.00")
             			.addAttribute("minPayment", "52.00")
             			.addAttribute("interestRate", ".08");
             
-            creditCardElement.addElement("creditCard")
+            debtsElement.addElement("creditCard")
 						.addAttribute("Name", "Test Credit Card 2")
 						.addAttribute("Balance", "2750.00")
 						.addAttribute("minPayment", "100.00")
@@ -230,7 +223,7 @@ public class Controller {
             	}
             }
             
-            String loansPath = "/controllerTestsData/Payments/Loans/Loan";
+            String loansPath = "/controllerTestsData/Payments/Debts/Loan";
             List<Node> loanNodes = document.selectNodes(loansPath);
             if (loanNodes.size() > 0){
             	for(Node node : loanNodes){
@@ -238,7 +231,7 @@ public class Controller {
             	}
             }
             
-            String creditCardsPath = "controllerTestsData/Payments/creditCards/creditCard";
+            String creditCardsPath = "controllerTestsData/Payments/Debts/creditCard";
             List<Node> creditCardNodes = document.selectNodes(creditCardsPath);
             if (creditCardNodes.size() > 0){
             	for(Node node : creditCardNodes){
@@ -262,6 +255,15 @@ public class Controller {
     
     public ArrayList<Account> getAccountsArray(){
     	return this.accountsArray;
+    }
+    
+    public ArrayList<Debt> getOrderedDebtsArray() {
+		// TODO Auto-generated method stub
+		return this.orderedDebtArray;
+	}
+    
+    public Debt getDebt(int index){
+    	return this.orderedDebtArray.get(index);
     }
 
     public Account getAccount(int index){
@@ -336,9 +338,9 @@ public class Controller {
     
     public void addPayment(Payment paymentToAdd){
     	if (paymentToAdd instanceof Loan){
-    		this.loanArray.add((Loan)paymentToAdd);
+    		this.orderedDebtArray.add((Loan)paymentToAdd);
     	} else if (paymentToAdd instanceof CreditCard){
-    		this.creditCardArray.add((CreditCard) paymentToAdd);
+    		this.orderedDebtArray.add((CreditCard) paymentToAdd);
     	} else if (paymentToAdd instanceof Bill){
     		this.billsArray.add((Bill) paymentToAdd);
     	} else if (paymentToAdd instanceof Expense){
@@ -360,10 +362,10 @@ public class Controller {
     public void addPayment(String type, String name, double amount, double minimumPayment,  double interestRate){
     	switch(type){
     	case "Loan":
-    		this.loanArray.add(new Loan(name, amount, minimumPayment, interestRate));
+    		this.orderedDebtArray.add(new Loan(name, amount, minimumPayment, interestRate));
     		break;
     	case "Credit":
-    		this.creditCardArray.add(new CreditCard(name, amount, minimumPayment, interestRate));
+    		this.orderedDebtArray.add(new CreditCard(name, amount, minimumPayment, interestRate));
     		break;
     	}
     }
@@ -372,13 +374,6 @@ public class Controller {
     	return this.billsArray.get(index);
     }
     
-    public Loan getLoan(int index){
-    	return this.loanArray.get(index);
-    }
-    
-    public CreditCard getCreditCard(int index){
-    	return this.creditCardArray.get(index);
-    }
     
     public Expense getExpense(int index){
     	return this.expenseArray.get(index);
@@ -390,13 +385,13 @@ public class Controller {
      */
     public void createOrderedDebts(){
     	ArrayList<Debt> tempArray = new ArrayList<Debt>();
-    	tempArray.addAll(this.creditCardArray);
-    	tempArray.addAll(this.loanArray);
-    	this.orderedDebts = mergeSort(tempArray);
+    	tempArray.addAll(this.orderedDebtArray);
+    	this.orderedDebtArray = mergeSort(tempArray);
     	
     }
     
     public ArrayList<Debt> mergeSort(ArrayList<Debt> unorderedArray){
+    	
     	ArrayList<Debt> leftSide = new ArrayList<Debt>();
     	ArrayList<Debt> rightSide = new ArrayList<Debt>();
     	int center;
@@ -462,11 +457,40 @@ public class Controller {
     private int compareBalances(Debt a, Debt b){
     	return Double.compare(a.getBalance(), b.getBalance());	
     }
+    
+    public void updateAnAccount(int index, String accountName, String accountBalance, String accountType,
+			String accountSavingsGoal) {
+		Account tempAccount = accountsArray.get(index);
+		tempAccount.setName(accountName);
+		tempAccount.setBalance(Double.parseDouble(accountBalance));
+		tempAccount.setType(accountType);
+		tempAccount.setSavingsGoal(Double.parseDouble(accountSavingsGoal));
+		
+	}
        
     public static void main(String[] args){
     	Controller testOutput = new Controller();
     	testOutput.createTestOuputDocument();
     }
+
+	public void updateADebt(int index, String name, String balance, String minimumPayment, String interestRate) {
+		// TODO Auto-generated method stub
+		Debt tempDebt = this.orderedDebtArray.get(index);
+		tempDebt.setName(name);
+		tempDebt.setAmountOwed(Double.parseDouble(balance));
+		tempDebt.setMinimumPayment(Double.parseDouble(minimumPayment));
+		tempDebt.setInterestRate(Double.parseDouble(interestRate));
+		
+	}
+
+	public void removeDebt(int selectedIndex) {
+		// TODO Auto-generated method stub
+		orderedDebtArray.remove(selectedIndex);
+	}
+
+	
+
+	
 
     
 }

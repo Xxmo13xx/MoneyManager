@@ -50,10 +50,7 @@ public class ControllerTests extends TestCase {
     	assertEquals("Test Bill 2", testController.getBill(1).getName());
     	assertEquals("Test Expense 1", testController.getExpense(0).getName());
     	assertEquals("Test Expense 2", testController.getExpense(1).getName());
-    	assertEquals("Test Loan 1", testController.getLoan(0).getName());
-    	assertEquals("Test Loan 2", testController.getLoan(1).getName());
-    	assertEquals("Test Credit Card 1", testController.getCreditCard(0).getName());
-    	assertEquals("Test Credit Card 2", testController.getCreditCard(1).getName());
+
     }
     
     @Test
@@ -76,8 +73,6 @@ public class ControllerTests extends TestCase {
     	assertEquals(testController.getAccount(2).getName(), testCheckingAccount.getName());
     	assertEquals(testController.getBill(0).getName(), testBillPayment.getName());
     	assertEquals(testController.getBill(1).getName(), testBillPayment2.getName());
-    	assertEquals(testController.getLoan(0).getName(), testLoanPayment.getName());
-    	assertEquals(testController.getCreditCard(0).getName(), testCreditPayment.getName());
     	assertEquals(testController.getExpense(0).getName(), testExpensePayment.getName());
     	assertEquals(testController.getExpense(1).getName(), testExpensePayment2.getName());
     }
@@ -137,8 +132,8 @@ public class ControllerTests extends TestCase {
 
 
         assertEquals(testController.getBill(0).getName(), "Test Bill");
-        assertEquals(testController.getLoan(0).getName(), "Test Loan");
-        assertEquals(testController.getCreditCard(0).getName(), "Test Credit");
+        assertEquals(testController.getDebt(0).getName(), "Test Loan");
+        assertEquals(testController.getDebt(1).getName(), "Test Credit");
         assertEquals(testController.getExpense(0).getName(), "Test Expense");
     }
 
@@ -152,8 +147,7 @@ public class ControllerTests extends TestCase {
 
 
         assertEquals(testController.getBill(0).getName(), "testBill");
-        assertEquals(testController.getLoan(0).getName(), "testLoan");
-        assertEquals(testController.getCreditCard(0).getName(), "testCredit");
+
         assertEquals(testController.getExpense(0).getName(), "testExpense");
 
     }
@@ -174,19 +168,19 @@ public class ControllerTests extends TestCase {
     	
     	testController.createOrderedDebts();
     	
-    	assertEquals(testController.orderedDebts.get(0).getBalance(), 1000.00);
-    	assertEquals(testController.orderedDebts.get(1).getBalance(), 2500.00);
-    	assertEquals(testController.orderedDebts.get(2).getBalance(), 4000.00);
-    	assertEquals(testController.orderedDebts.get(3).getBalance(), 8500.00);
-    	assertEquals(testController.orderedDebts.get(4).getBalance(), 14000.00);
-    	assertEquals(testController.orderedDebts.get(5).getBalance(), 34000.00);
+    	assertEquals(testController.orderedDebtArray.get(0).getBalance(), 1000.00);
+    	assertEquals(testController.orderedDebtArray.get(1).getBalance(), 2500.00);
+    	assertEquals(testController.orderedDebtArray.get(2).getBalance(), 4000.00);
+    	assertEquals(testController.orderedDebtArray.get(3).getBalance(), 8500.00);
+    	assertEquals(testController.orderedDebtArray.get(4).getBalance(), 14000.00);
+    	assertEquals(testController.orderedDebtArray.get(5).getBalance(), 34000.00);
     	
-    	assertEquals(testController.orderedDebts.get(0).getName(), "test credit 1");
-    	assertEquals(testController.orderedDebts.get(1).getName(),"test credit 2");
-    	assertEquals(testController.orderedDebts.get(2).getName(), "test credit 3");
-    	assertEquals(testController.orderedDebts.get(3).getName(), "test loan 1");
-    	assertEquals(testController.orderedDebts.get(4).getName(), "test loan 2");
-    	assertEquals(testController.orderedDebts.get(5).getName(), "test loan 3");
+    	assertEquals(testController.orderedDebtArray.get(0).getName(), "test credit 1");
+    	assertEquals(testController.orderedDebtArray.get(1).getName(),"test credit 2");
+    	assertEquals(testController.orderedDebtArray.get(2).getName(), "test credit 3");
+    	assertEquals(testController.orderedDebtArray.get(3).getName(), "test loan 1");
+    	assertEquals(testController.orderedDebtArray.get(4).getName(), "test loan 2");
+    	assertEquals(testController.orderedDebtArray.get(5).getName(), "test loan 3");
     	
     }
 }

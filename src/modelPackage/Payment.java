@@ -38,5 +38,8 @@ public class Payment {
 	public double getMinimumPayment(){
 		return minimumPayment;
 	}
+	public void setMinimumPayment(Double minPayment){
+		this.minimumPayment = minPayment;
+	}
     
 }

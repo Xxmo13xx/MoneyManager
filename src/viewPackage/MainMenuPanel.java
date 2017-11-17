@@ -100,6 +100,11 @@ public class MainMenuPanel extends JPanel {
 		txtBudgetFileChoosen.setColumns(10);
 		
 		JButton btnEditBudget = new JButton("Edit Budget");
+		btnEditBudget.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		GridBagConstraints gbc_btnEditBudget = new GridBagConstraints();
 		gbc_btnEditBudget.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnEditBudget.insets = new Insets(0, 0, 5, 0);
@@ -126,6 +131,11 @@ public class MainMenuPanel extends JPanel {
 		txtDebtFileChoosen.setColumns(10);
 		
 		JButton btnEditDebt = new JButton("Edit Debt");
+		btnEditDebt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changeCard("debtsEdit");
+			}
+		});
 		GridBagConstraints gbc_btnEditDebt = new GridBagConstraints();
 		gbc_btnEditDebt.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnEditDebt.insets = new Insets(0, 0, 5, 0);

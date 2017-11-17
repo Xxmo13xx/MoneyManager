@@ -11,14 +11,12 @@
       <Bill Name="Test Bill 1" Balance="150.00" minPayment="150.00"/>
       <Bill Name="Test Bill 2" Balance="100.00" minPayment="100.00"/>
     </Bills>
-    <Loans>
+    <Debts>
       <Loan Name="Test Loan 1" Balance="1400.00" minPayment="650.00" interestRate=".08"/>
       <Loan Name="Test Loan 2" Balance="3400.00" minPayment="350.00" interestRate=".08"/>
-    </Loans>
-    <creditCards>
       <creditCard Name="Test Credit Card 1" Balance="700.00" minPayment="52.00" interestRate=".08"/>
       <creditCard Name="Test Credit Card 2" Balance="2750.00" minPayment="100.00" interestRate=".08"/>
-    </creditCards>
+    </Debts>
     <Expenses>
       <Expense Name="Test Expense 1" Balance="50.00" minPayment="50.00"/>
       <Expense Name="Test Expense 2" Balance="100.00" minPayment="100.00"/>

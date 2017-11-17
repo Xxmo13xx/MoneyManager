@@ -15,25 +15,28 @@ import javax.swing.JButton;
 import javax.swing.Box;
 import java.util.*;
 import modelPackage.Account;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditAnAccountPanel extends JPanel {
 	private JTextField newAccountName;
 	private JTextField newAccountBalance;
 	private JTextField newAccountSavingsGoal;
-	JComboBox accountComboBox;
+	private JLabel originalAccountName, originalAccountBalance, originalAccountType, originalAccountSavings;
+	JComboBox accountComboBox, newAccountTypeComboBox;
 
 	/**
 	 * Create the panel.
 	 */
-	public EditAnAccountPanel() {
+	public EditAnAccountPanel(ViewController controller) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JPanel panel = new JPanel();
 		add(panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
@@ -59,10 +62,21 @@ public class EditAnAccountPanel extends JPanel {
 		panel.add(verticalStrut_1, gbc_verticalStrut_1);
 		
 		accountComboBox = new JComboBox();
+		accountComboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("The name of the selected account is " + accountComboBox.getSelectedItem());
+				HashMap<String, String> accountInfo = controller.getAccountInfo(accountComboBox.getSelectedIndex());
+				originalAccountName.setText(accountInfo.get("name"));
+				originalAccountBalance.setText(accountInfo.get("balance"));
+				originalAccountType.setText(accountInfo.get("type"));
+				originalAccountSavings.setText(accountInfo.get("savings"));
+				
+			}
+		});
 		
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.gridwidth = 4;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 1;
 		gbc_comboBox.gridy = 3;
@@ -77,12 +91,12 @@ public class EditAnAccountPanel extends JPanel {
 		
 		JLabel lblNew = new JLabel("New");
 		GridBagConstraints gbc_lblNew = new GridBagConstraints();
-		gbc_lblNew.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNew.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNew.gridx = 4;
 		gbc_lblNew.gridy = 4;
 		panel.add(lblNew, gbc_lblNew);
 		
-		Component horizontalStrut = Box.createHorizontalStrut(100);
+		Component horizontalStrut = Box.createHorizontalStrut(40);
 		GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
 		gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
 		gbc_horizontalStrut.gridx = 0;
@@ -96,7 +110,7 @@ public class EditAnAccountPanel extends JPanel {
 		gbc_lblAccountName.gridy = 5;
 		panel.add(lblAccountName, gbc_lblAccountName);
 		
-		JLabel originalAccountName = new JLabel("---");
+		originalAccountName = new JLabel("---");
 		GridBagConstraints gbc_originalAccountName = new GridBagConstraints();
 		gbc_originalAccountName.insets = new Insets(0, 0, 5, 5);
 		gbc_originalAccountName.gridx = 2;
@@ -105,12 +119,19 @@ public class EditAnAccountPanel extends JPanel {
 		
 		newAccountName = new JTextField();
 		GridBagConstraints gbc_newAccountName = new GridBagConstraints();
-		gbc_newAccountName.anchor = GridBagConstraints.WEST;
-		gbc_newAccountName.insets = new Insets(0, 0, 5, 0);
+		gbc_newAccountName.fill = GridBagConstraints.HORIZONTAL;
+		gbc_newAccountName.insets = new Insets(0, 0, 5, 5);
 		gbc_newAccountName.gridx = 4;
 		gbc_newAccountName.gridy = 5;
 		panel.add(newAccountName, gbc_newAccountName);
 		newAccountName.setColumns(10);
+		
+		Component horizontalStrut_1 = Box.createHorizontalStrut(40);
+		GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
+		gbc_horizontalStrut_1.insets = new Insets(0, 0, 5, 0);
+		gbc_horizontalStrut_1.gridx = 5;
+		gbc_horizontalStrut_1.gridy = 5;
+		panel.add(horizontalStrut_1, gbc_horizontalStrut_1);
 		
 		JLabel lblAccountBalance = new JLabel("Account Balance");
 		GridBagConstraints gbc_lblAccountBalance = new GridBagConstraints();
@@ -119,7 +140,7 @@ public class EditAnAccountPanel extends JPanel {
 		gbc_lblAccountBalance.gridy = 6;
 		panel.add(lblAccountBalance, gbc_lblAccountBalance);
 		
-		JLabel originalAccountBalance = new JLabel("---");
+		originalAccountBalance = new JLabel("---");
 		GridBagConstraints gbc_originalAccountBalance = new GridBagConstraints();
 		gbc_originalAccountBalance.insets = new Insets(0, 0, 5, 5);
 		gbc_originalAccountBalance.gridx = 2;
@@ -128,8 +149,8 @@ public class EditAnAccountPanel extends JPanel {
 		
 		newAccountBalance = new JTextField();
 		GridBagConstraints gbc_newAccountBalance = new GridBagConstraints();
-		gbc_newAccountBalance.anchor = GridBagConstraints.WEST;
-		gbc_newAccountBalance.insets = new Insets(0, 0, 5, 0);
+		gbc_newAccountBalance.fill = GridBagConstraints.HORIZONTAL;
+		gbc_newAccountBalance.insets = new Insets(0, 0, 5, 5);
 		gbc_newAccountBalance.gridx = 4;
 		gbc_newAccountBalance.gridy = 6;
 		panel.add(newAccountBalance, gbc_newAccountBalance);
@@ -142,17 +163,17 @@ public class EditAnAccountPanel extends JPanel {
 		gbc_lblAcountType.gridy = 7;
 		panel.add(lblAcountType, gbc_lblAcountType);
 		
-		JLabel originalAccountType = new JLabel("---");
+		originalAccountType = new JLabel("---");
 		GridBagConstraints gbc_originalAccountType = new GridBagConstraints();
 		gbc_originalAccountType.insets = new Insets(0, 0, 5, 5);
 		gbc_originalAccountType.gridx = 2;
 		gbc_originalAccountType.gridy = 7;
 		panel.add(originalAccountType, gbc_originalAccountType);
 		
-		JComboBox newAccountTypeComboBox = new JComboBox();
+		newAccountTypeComboBox = new JComboBox();
 		newAccountTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Checkings", "Savings"}));
 		GridBagConstraints gbc_newAccountTypeComboBox = new GridBagConstraints();
-		gbc_newAccountTypeComboBox.insets = new Insets(0, 0, 5, 0);
+		gbc_newAccountTypeComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_newAccountTypeComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_newAccountTypeComboBox.gridx = 4;
 		gbc_newAccountTypeComboBox.gridy = 7;
@@ -165,16 +186,16 @@ public class EditAnAccountPanel extends JPanel {
 		gbc_lblSavingsGoal.gridy = 8;
 		panel.add(lblSavingsGoal, gbc_lblSavingsGoal);
 		
-		JLabel originalSavingsLabel = new JLabel("---");
-		GridBagConstraints gbc_originalSavingsLabel = new GridBagConstraints();
-		gbc_originalSavingsLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_originalSavingsLabel.gridx = 2;
-		gbc_originalSavingsLabel.gridy = 8;
-		panel.add(originalSavingsLabel, gbc_originalSavingsLabel);
+		originalAccountSavings = new JLabel("---");
+		GridBagConstraints gbc_originalAccountSavings = new GridBagConstraints();
+		gbc_originalAccountSavings.insets = new Insets(0, 0, 5, 5);
+		gbc_originalAccountSavings.gridx = 2;
+		gbc_originalAccountSavings.gridy = 8;
+		panel.add(originalAccountSavings, gbc_originalAccountSavings);
 		
 		newAccountSavingsGoal = new JTextField();
 		GridBagConstraints gbc_newAccountSavingsGoal = new GridBagConstraints();
-		gbc_newAccountSavingsGoal.insets = new Insets(0, 0, 5, 0);
+		gbc_newAccountSavingsGoal.insets = new Insets(0, 0, 5, 5);
 		gbc_newAccountSavingsGoal.fill = GridBagConstraints.HORIZONTAL;
 		gbc_newAccountSavingsGoal.gridx = 4;
 		gbc_newAccountSavingsGoal.gridy = 8;
@@ -183,6 +204,7 @@ public class EditAnAccountPanel extends JPanel {
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
+		gbc_panel_1.insets = new Insets(0, 0, 0, 5);
 		gbc_panel_1.gridwidth = 4;
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 1;
@@ -190,16 +212,35 @@ public class EditAnAccountPanel extends JPanel {
 		panel.add(panel_1, gbc_panel_1);
 		
 		JButton btnNewButton = new JButton("Update Account");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = accountComboBox.getSelectedIndex();
+				String accountName = newAccountName.getText();
+				String accountBalance = newAccountBalance.getText();
+				String accountType = (String)newAccountTypeComboBox.getSelectedItem();
+				String accountSavingsGoal = newAccountSavingsGoal.getText();
+				controller.updateAnAccount(index, accountName, accountBalance, accountType, accountSavingsGoal);
+				controller.changeCard("accountsEdit");
+			}
+		});
 		panel_1.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Back to Accounts");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changeCard("accountsEdit");
+			}
+		});
 		panel_1.add(btnNewButton_1);
 
 	}
 	
 	public void updateComboBox(ArrayList<Account> accountsArray){
+		accountComboBox.removeAllItems();
 		for(Account tempAccount: accountsArray){
 			accountComboBox.addItem(tempAccount.getName());
 		}
 	}
+	
+	
 }

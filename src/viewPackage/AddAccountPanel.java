@@ -161,6 +161,11 @@ public class AddAccountPanel extends JPanel {
 		panel_2.add(btnAddAccount);
 		
 		JButton btnBackToAccounts = new JButton("Back to Accounts");
+		btnBackToAccounts.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changeCard("accountsEdit");
+			}
+		});
 		panel_2.add(btnBackToAccounts);
 
 	}
