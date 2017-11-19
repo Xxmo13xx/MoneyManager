@@ -488,6 +488,17 @@ public class Controller {
 		orderedDebtArray.remove(selectedIndex);
 	}
 
+	public void updateOrderedArray(ArrayList<Debt> iterationArray) {
+		// TODO Auto-generated method stub
+		for(int i = orderedDebtArray.size()-1; i >= 0; i--){
+			this.orderedDebtArray.remove(i);
+		}
+		for(Debt debt: iterationArray){
+			this.orderedDebtArray.add(debt);
+		}
+		this.orderedDebtArray.addAll(iterationArray);
+	}
+
 	
 
 	

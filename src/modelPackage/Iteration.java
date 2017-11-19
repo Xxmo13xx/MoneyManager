@@ -27,6 +27,7 @@ public class Iteration {
 	public Debt getDebt(int index){
 		return this.iterationArray.get(index);
 	}
+	
 	// returns the amount to add to the extra payoff amount if we pay something off during this iteration. 
 	public Double runAnIteration(Double extraPayoffAmount) {
 		// TODO Auto-generated method stub
@@ -35,49 +36,76 @@ public class Iteration {
 		Boolean makeExtraPayment = true;
 		for(Debt tempDebt : iterationArray){
 			// temp debt will get paid off by the minimum payment
-			if(tempDebt.willBePayedOff()){
-				
-				// get amount that would be left over and add it to the temp extra payoff amount
-				Double leftOverAmount = tempDebt.getMinimumPayment() - tempDebt.getBalance();
-				tempExtraPayoff += leftOverAmount;
-				// add the minimumPayment to the next payoff amount
-				addToExtraPayoffForNextIteration = tempDebt.getMinimumPayment();
-				tempDebt.setBalance(0.00);
-			// the debt will not get paid off by the minimum payment during this iteration
-			} else {
-				tempDebt.makeMinimumPayment();
+			if (tempDebt.getBalance() > 0.00){
+				if(tempDebt.willBePayedOff()){
+					
+					// get amount that would be left over and add it to the temp extra payoff amount
+					Double leftOverAmount = tempDebt.getMinimumPayment() - tempDebt.getBalance();
+					tempExtraPayoff += leftOverAmount;
+					// add the minimumPayment to the next payoff amount
+					addToExtraPayoffForNextIteration += tempDebt.getMinimumPayment();
+					tempDebt.setBalance(0.00);
+				// the debt will not get paid off by the minimum payment during this iteration
+				} else {
+					tempDebt.makeMinimumPayment();
+				}
 			}
 			
-			if (tempExtraPayoff > 0.00){
-				// the extra payment will payoff the debt. 
-				if(tempDebt.willBePayedOff(tempExtraPayoff)){
-					
-					// get the money that would be left over from the extra payment
-					Double leftOverAmount = tempExtraPayoff - tempDebt.getBalance();
-					// update the tempExtraPayoff
-					tempExtraPayoff = leftOverAmount;
-					tempDebt.setBalance(0.00);
-					// leave the makeExtraPayment boolean true so it can be payed on the next debt.
-				// the debt won't get paid off by the extra payment
-				} else{
-					tempDebt.makeExtraPayment(tempExtraPayoff);
-					tempExtraPayoff = 0.00;
-					//makeExtraPayment = false;
+			if (tempDebt.getBalance() > 0.00){
+				
+				if (tempExtraPayoff > 0.00){
+					// the extra payment will payoff the debt. 
+					if(tempDebt.willBePayedOff(tempExtraPayoff)){
+						
+						// get the money that would be left over from the extra payment
+						Double leftOverAmount = tempExtraPayoff - tempDebt.getBalance();
+						// update the tempExtraPayoff
+						tempExtraPayoff = leftOverAmount;
+						addToExtraPayoffForNextIteration += tempDebt.getMinimumPayment();
+						tempDebt.setBalance(0.00);
+						// leave the makeExtraPayment boolean true so it can be payed on the next debt.
+					// the debt won't get paid off by the extra payment
+					} else{
+						tempDebt.makeExtraPayment(tempExtraPayoff);
+						tempExtraPayoff = 0.00;
+						//makeExtraPayment = false;
+					}
 				}
 			}
 			
 			
 			
+			
 		}
+		this.controller.updateOrderedArray(iterationArray);
 		return addToExtraPayoffForNextIteration;
 		
 	}
 
 
 
-	public void runXIterations(int i, double d) {
+	public void runXIterations(int numberOfIterations, double extraPayoffAmount) {
 		// TODO Auto-generated method stub
+		while(numberOfIterations > 0){
+			if(! iterationArray.isEmpty()) extraPayoffAmount += runAnIteration(extraPayoffAmount);
+			numberOfIterations--;	
+		}
 		
 	}
-
+	
+	public String generateIterationOutput(Debt iterationDebt){
+		StringBuilder output = new StringBuilder();
+		output.append("Debt: " + iterationDebt.getName() + "\n");
+		output.append("Balance: " + iterationDebt.getBalance() + "\n");
+		
+		return output.toString();
+	}
+	
+		
+	
+	public void output(int iteration){
+		System.out.println("\tIteration Number " + iteration);
+		//System.out.println("Debt: " + )
+	}
+	
 }
