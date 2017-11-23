@@ -4,28 +4,28 @@ import java.util.ArrayList;
 public class Iteration {
 	
 	Controller controller;
-	ArrayList<Debt> iterationArray;
+	ArrayList<Debt> debtsArray;
+	Double extraPayoffAmount;
 	
 	public Iteration (Controller controller){
 		this.controller = controller;
-		iterationArray = controller.getOrderedDebtsArray();
+		debtsArray = controller.getOrderedDebtsArray();
 	}
 	
-	
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	public Iteration (ArrayList<Debt> orderedDebtArray, Double extraPayoffAmount){
+		this.debtsArray = orderedDebtArray;
+		this.extraPayoffAmount = extraPayoffAmount;
 	}
+	
 
 
 	public void getOrderedDebtsArray() {
 		// TODO Auto-generated method stub
-		this.iterationArray = controller.getOrderedDebtsArray();
+		this.debtsArray = controller.getOrderedDebtsArray();
 	}
 	
 	public Debt getDebt(int index){
-		return this.iterationArray.get(index);
+		return this.debtsArray.get(index);
 	}
 	
 	// returns the amount to add to the extra payoff amount if we pay something off during this iteration. 
@@ -33,8 +33,8 @@ public class Iteration {
 		// TODO Auto-generated method stub
 		Double addToExtraPayoffForNextIteration = 0.00;
 		Double tempExtraPayoff = extraPayoffAmount;
-		Boolean makeExtraPayment = true;
-		for(Debt tempDebt : iterationArray){
+
+		for(Debt tempDebt : debtsArray){
 			// temp debt will get paid off by the minimum payment
 			if (tempDebt.getBalance() > 0.00){
 				if(tempDebt.willBePayedOff()){
@@ -77,19 +77,22 @@ public class Iteration {
 			
 			
 		}
-		this.controller.updateOrderedArray(iterationArray);
 		return addToExtraPayoffForNextIteration;
 		
 	}
 
 
 
-	public void runXIterations(int numberOfIterations, double extraPayoffAmount) {
+	public Double runXIterations(int numberOfIterations, double extraPayoffAmount) {
 		// TODO Auto-generated method stub
+		Double addToExtraPayoff = extraPayoffAmount;
 		while(numberOfIterations > 0){
-			if(! iterationArray.isEmpty()) extraPayoffAmount += runAnIteration(extraPayoffAmount);
+			if(! debtsArray.isEmpty()){
+				addToExtraPayoff += runAnIteration(addToExtraPayoff);
+			}
 			numberOfIterations--;	
 		}
+		return addToExtraPayoff;
 		
 	}
 	

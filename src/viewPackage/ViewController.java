@@ -170,4 +170,9 @@ public class ViewController {
 		debtsEditPanel.updateTableModel(modelController.getOrderedDebtsArray());
 	}
 
+	public int getIterationArraySize() {
+		// TODO Auto-generated method stub
+		return modelController.getIterationArraySize();
+	}
+
 }

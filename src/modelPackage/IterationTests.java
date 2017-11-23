@@ -157,8 +157,9 @@ public class IterationTests extends TestCase {
 		controller.createOrderedDebts();
 		
 		testIteration.getOrderedDebtsArray();
+		Double extraPayoff = 100.00;
 		
-		testIteration.runXIterations(1,100.00);
+		extraPayoff = testIteration.runXIterations(1,extraPayoff);
 		//Iteration 1
 		assertEquals(controller.getDebt(0).getBalance(),0.00);
 		assertEquals(controller.getDebt(1).getBalance(),0.00);
@@ -167,7 +168,7 @@ public class IterationTests extends TestCase {
 		assertEquals(controller.getDebt(4).getBalance(),8700.00);
 		assertEquals(controller.getDebt(5).getBalance(),13400.00);
 		
-		testIteration.runXIterations(1,100.00);
+		extraPayoff = testIteration.runXIterations(1,extraPayoff);
 
 		//Iteration 2
 		assertEquals(controller.getDebt(2).getBalance(),0.00);
@@ -175,36 +176,36 @@ public class IterationTests extends TestCase {
 		assertEquals(controller.getDebt(4).getBalance(),8400.00);
 		assertEquals(controller.getDebt(5).getBalance(),12800.00);
 		
-		testIteration.runXIterations(1,100.00);
+		extraPayoff = testIteration.runXIterations(1,extraPayoff);
 		
 		//Iteration 3
 		assertEquals(controller.getDebt(3).getBalance(),0.00);
 		assertEquals(controller.getDebt(4).getBalance(),6950.00);
 		assertEquals(controller.getDebt(5).getBalance(),12200.00);
 
-		testIteration.runXIterations(2,100.00);
+		extraPayoff = testIteration.runXIterations(2,extraPayoff);
 		//Iteration 5
 		assertEquals(controller.getDebt(4).getBalance(),3750.00);
 		assertEquals(controller.getDebt(5).getBalance(),11000.00);
 		
-		testIteration.runXIterations(2,100.00);
+		extraPayoff = testIteration.runXIterations(2,extraPayoff);
 		
 		//Iteration 7
 		assertEquals(controller.getDebt(4).getBalance(),550.00);
 		assertEquals(controller.getDebt(5).getBalance(),9800.00);
 		
-		testIteration.runXIterations(1,100.00);
+		extraPayoff = testIteration.runXIterations(1,extraPayoff);
 
 		//Iteration 8
 		assertEquals(controller.getDebt(4).getBalance(),0.00);
 		assertEquals(controller.getDebt(5).getBalance(),8150.00);
 		
-		testIteration.runXIterations(2,100.00);
+		extraPayoff = testIteration.runXIterations(2,extraPayoff);
 		
 		//Iteration 10
 		assertEquals(controller.getDebt(5).getBalance(),3750.00);
 
-		testIteration.runXIterations(2,100.00);
+		extraPayoff = testIteration.runXIterations(2,extraPayoff);
 		
 		//Iteration 12
 		assertEquals(controller.getDebt(5).getBalance(),0.00);

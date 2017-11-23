@@ -10,6 +10,7 @@ public class Controller {
     ArrayList<Bill> billsArray;
     ArrayList<Expense> expenseArray;
     ArrayList<Debt> orderedDebtArray;
+    DebtSnowball debtSnowball;
 
     public Controller() {
         accountsArray = new ArrayList<Account>();
@@ -20,6 +21,10 @@ public class Controller {
         orderedDebtArray = new ArrayList<Debt>();
         
        
+    }
+    
+    public void removeDebtFromIteration(Debt debtToRemove){
+    	orderedDebtArray.remove(debtToRemove);
     }
     
     public void saveData(){
@@ -259,6 +264,7 @@ public class Controller {
     
     public ArrayList<Debt> getOrderedDebtsArray() {
 		// TODO Auto-generated method stub
+    	createOrderedDebts();
 		return this.orderedDebtArray;
 	}
     
@@ -497,6 +503,15 @@ public class Controller {
 			this.orderedDebtArray.add(debt);
 		}
 		this.orderedDebtArray.addAll(iterationArray);
+	}
+	
+	public void startDebtSnowball(){
+		debtSnowball = new DebtSnowball(this);
+	}
+
+	public int getIterationArraySize() {
+		// TODO Auto-generated method stub
+		return debtSnowball.getIterationArraySize();
 	}
 
 	
