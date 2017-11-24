@@ -120,5 +120,15 @@ public class DebtSnowball {
 		}
 		System.out.println(resultsOutput.toString());
 	}
+	
+	public String[] getDebtNames() {
+		String[] debtNames = new String[debtArray.size()];
+		int count = 0;
+		for(Debt tempDebt : debtArray) {
+			debtNames[count] = tempDebt.getName();
+			count++;
+		}
+		return debtNames;
+	}
 
 }

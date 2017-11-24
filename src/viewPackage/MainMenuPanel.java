@@ -170,6 +170,12 @@ public class MainMenuPanel extends JPanel {
 		panel.add(panel_1, gbc_panel_1);
 		
 		JButton btnRunAllIterations = new JButton("Start Debt Snowball");
+		btnRunAllIterations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.startDebtSnowball();
+				controller.changeCard("debtSnowball");
+			}
+		});
 		panel_1.add(btnRunAllIterations);
 
 	}

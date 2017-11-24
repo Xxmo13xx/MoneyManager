@@ -1,5 +1,6 @@
 package viewPackage;
 
+
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
@@ -9,17 +10,21 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+import modelPackage.Controller;
 
 
 public class DebtSnowballPanel extends JPanel {
 	private JTextField textField;
 	private JTable table;
 	DefaultTableModel tableModel;
+	Controller modelController;
+	
 
 	/**
 	 * Create the panel.
 	 */
-	public DebtSnowballPanel(ViewController viewController) {
+	public DebtSnowballPanel(ViewController viewController, Controller modelController) {
+		this.modelController = modelController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		JLabel lblDebtSnowball = new JLabel("Debt Snowball");
@@ -42,7 +47,10 @@ public class DebtSnowballPanel extends JPanel {
 		
 		tableModel = new DefaultTableModel(viewController.getIterationArraySize(),0);		
 		table = new JTable(tableModel);
+		tableModel.addColumn("", setFirstColumn());
 		
+		table.setValueAt("Iteration", 0, 0);
+		table.setValueAt("Payoff Amount", 1, 0);
 		
 		
 		scrollPane.setViewportView(table);
@@ -59,6 +67,25 @@ public class DebtSnowballPanel extends JPanel {
 		JButton btnRunAllIterations = new JButton("Run all Iterations");
 		panel_1.add(btnRunAllIterations);
 
+	}
+
+	public void updateTable() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public String[] setFirstColumn() {
+		String[] debtNames = modelController.getDebtSnowballDebtNames();
+		String[] tempArray = new String[debtNames.length+2];
+		tempArray[0] = "Iteration";
+		tempArray[1] = "Payoff Amount";
+		for(int x = 0; x < debtNames.length; x++) {
+			System.out.println("Looked at: " + debtNames[x]);
+			tempArray[x+2] = debtNames[x];
+		}
+		return tempArray;
+		
+		
 	}
 
 }

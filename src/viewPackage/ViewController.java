@@ -22,6 +22,7 @@ public class ViewController {
 	DeleteADebtPanel deleteADebtPanel;
 	AddADebtPanel addADebtPanel;
 	EditADebtPanel editADebtPanel;
+	DebtSnowballPanel debtSnowballPanel;
 	CardLayout cl;
 	Controller modelController;
 
@@ -53,6 +54,7 @@ public class ViewController {
 		addADebtPanel = new AddADebtPanel(this);
 		deleteADebtPanel = new DeleteADebtPanel(this);
 		editADebtPanel = new EditADebtPanel(this);
+		
 		
 		initialize();
 		
@@ -99,8 +101,13 @@ public class ViewController {
 		deleteADebtPanel.updateComboBox(modelController.getOrderedDebtsArray());
 		cards.add(deleteADebtPanel, "deleteADebt");
 		
+		// Debt Snowball Panel
+		
+				
+		
 		frame.getContentPane().add(cards);
 	}
+	
 	
 	public void changeCard(String cardToGoTo){
 		cl.show(cards, cardToGoTo);
@@ -173,6 +180,14 @@ public class ViewController {
 	public int getIterationArraySize() {
 		// TODO Auto-generated method stub
 		return modelController.getIterationArraySize();
+	}
+
+	public void startDebtSnowball() {
+		// TODO Auto-generated method stub
+		modelController.startDebtSnowball();
+		debtSnowballPanel = new DebtSnowballPanel(this, modelController);
+		cards.add(debtSnowballPanel, "debtSnowball");
+		
 	}
 
 }

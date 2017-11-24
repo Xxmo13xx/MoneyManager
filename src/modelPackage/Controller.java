@@ -513,6 +513,11 @@ public class Controller {
 		// TODO Auto-generated method stub
 		return debtSnowball.getIterationArraySize();
 	}
+	
+	public String[] getDebtSnowballDebtNames() {
+		String[] tempArray = debtSnowball.getDebtNames();
+		return tempArray;
+	}
 
 	
 
