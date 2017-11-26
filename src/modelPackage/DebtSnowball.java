@@ -1,5 +1,4 @@
 package modelPackage;
-import java.util.ArrayList;
 import java.util.*;
 
 public class DebtSnowball {
@@ -8,6 +7,7 @@ public class DebtSnowball {
 	ArrayList<Debt> debtArray;
 	ArrayList<Double[]> resultsArray;
 	Double initialPayoff, currentPayoff, count;
+	boolean payoffAmountSet;
 	int arraySize;
 	
 	public DebtSnowball(Controller controller, Double extraPayoff){
@@ -17,7 +17,9 @@ public class DebtSnowball {
 		resultsArray = new ArrayList<Double[]>();
 		arraySize = 2+debtArray.size();
 		count = 0.00;
+		initialPayoff = extraPayoff;
 		currentPayoff = extraPayoff;
+		payoffAmountSet = true;
 		// add the first iteration with just the input information.
 		createIterationResults();
 	}
@@ -28,7 +30,9 @@ public class DebtSnowball {
 		resultsArray = new ArrayList<Double[]>();
 		arraySize = 2+debtArray.size();
 		count = 0.00;
+		initialPayoff = 0.00;
 		currentPayoff = 0.00;
+		payoffAmountSet = false;
 	}
 	
 	public int getIterationArraySize(){
@@ -37,8 +41,8 @@ public class DebtSnowball {
 	
 	public void createIterationResults(){
 		Double[] initialResults = new Double[arraySize];
-		initialResults[0] = this.currentPayoff;
-		initialResults[1] = count;
+		initialResults[0] = count;
+		initialResults[1] = this.currentPayoff;
 		for(int x = 2; x < arraySize; x++){
 			initialResults[x] = debtArray.get(x-2).getBalance();
 		}
@@ -129,6 +133,39 @@ public class DebtSnowball {
 			count++;
 		}
 		return debtNames;
+	}
+	public void setPayoffAmount(double payoffAmount) {
+		// TODO Auto-generated method stub
+		if(! payoffAmountSet){
+			this.initialPayoff = payoffAmount;
+			this.currentPayoff = payoffAmount;
+			payoffAmountSet = true;
+		}
+		
+	}
+	public String[] getInitialValues() {
+		// TODO Auto-generated method stub
+		String[] tempArray = new String[debtArray.size()+2];
+		int count = 2;
+		tempArray[0] = "Inititial";
+		tempArray[1] = "Balance";
+		for(Debt tempDebt: debtArray){
+			tempArray[count] = Double.toString(tempDebt.getBalance());
+			count++;
+		}
+		return tempArray;
+	}
+	public String[] getMinimumPayments() {
+		// TODO Auto-generated method stub
+		String[] tempArray = new String[debtArray.size()+2];
+		int count = 2; 
+		tempArray[0] = "Minimum";
+		tempArray[1] = "Payments";
+		for(Debt tempDebt : debtArray){
+			tempArray[count] = Double.toString(tempDebt.getMinimumPayment());
+			count++;
+		}
+		return tempArray;
 	}
 
 }

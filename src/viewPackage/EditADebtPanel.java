@@ -183,6 +183,7 @@ public class EditADebtPanel extends JPanel {
 				String minimumPayment = newDebtMinPayment.getText();
 				String interestRate = newDebtInterestRate.getText();
 				controller.updateDebt(index, name, balance, minimumPayment, interestRate);
+				controller.changeCard("mainMenu");
 			}
 		});
 		GridBagConstraints gbc_btnUpdateDebt = new GridBagConstraints();

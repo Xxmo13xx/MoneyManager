@@ -11,19 +11,24 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import modelPackage.Controller;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.ScrollPaneConstants;
 
 
 public class DebtSnowballPanel extends JPanel {
-	private JTextField textField;
+	private JTextField extraPayoffField;
 	private JTable table;
 	DefaultTableModel tableModel;
 	Controller modelController;
+	int iterationNumber;
 	
 
 	/**
 	 * Create the panel.
 	 */
 	public DebtSnowballPanel(ViewController viewController, Controller modelController) {
+		iterationNumber =0;
 		this.modelController = modelController;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
@@ -34,23 +39,26 @@ public class DebtSnowballPanel extends JPanel {
 		JPanel panel = new JPanel();
 		add(panel);
 		
-		JLabel lblNewLabel = new JLabel("Extra Payoff Amount");
-		panel.add(lblNewLabel);
+		JLabel extraPayoffLabel = new JLabel("Extra Payoff Amount");
+		panel.add(extraPayoffLabel);
 		
-		textField = new JTextField();
-		panel.add(textField);
-		textField.setColumns(10);
+		extraPayoffField = new JTextField("100.00");
+		panel.add(extraPayoffField);
+		extraPayoffField.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		add(scrollPane);
 		
 		
 		tableModel = new DefaultTableModel(viewController.getIterationArraySize(),0);		
 		table = new JTable(tableModel);
 		tableModel.addColumn("", setFirstColumn());
-		
+		tableModel.addColumn("", setInitialValuesColumn());
+		tableModel.addColumn("", setMinPayments());
 		table.setValueAt("Iteration", 0, 0);
 		table.setValueAt("Payoff Amount", 1, 0);
+		
 		
 		
 		scrollPane.setViewportView(table);
@@ -59,6 +67,15 @@ public class DebtSnowballPanel extends JPanel {
 		add(panel_1);
 		
 		JButton btnRunOneIteration = new JButton("Run Iteration");
+		btnRunOneIteration.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				double payoffAmount = Double.parseDouble(extraPayoffField.getText());
+				modelController.setDebtSnowballPayoffAmount(payoffAmount);
+				modelController.runAnIteration();
+				tableModel.addColumn("", setAnIterationColumn());
+				iterationNumber++;
+			}
+		});
 		panel_1.add(btnRunOneIteration);
 		
 		JButton btnRunXIterations = new JButton("Run X Iterations");
@@ -84,8 +101,25 @@ public class DebtSnowballPanel extends JPanel {
 			tempArray[x+2] = debtNames[x];
 		}
 		return tempArray;
+	}
+	
+	public String[] setAnIterationColumn(){
+		return modelController.getIterationArray(iterationNumber);
+
+	}
+	
+	public String[] setInitialValuesColumn(){
 		
-		
+		String[] initialValuesArray = modelController.getSnowballInitialValues();
+		String tempValue = initialValuesArray[1];
+		initialValuesArray[1] = initialValuesArray[0];
+		initialValuesArray[0] = tempValue;
+		return initialValuesArray;
+	}
+	
+	public String[] setMinPayments(){
+		String[] minPaymentsArray = modelController.getSnowballMinPayments();
+		return minPaymentsArray;
 	}
 
 }

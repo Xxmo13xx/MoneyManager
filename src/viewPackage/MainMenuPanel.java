@@ -17,7 +17,6 @@ public class MainMenuPanel extends JPanel {
 	private JTextField txtAccountsFileChoosen;
 	private JTextField txtBudgetFileChoosen;
 	private JTextField txtDebtFileChoosen;
-	private JTextField extraPayoffTextField;
 
 	/**
 	 * Create the panel.
@@ -143,23 +142,6 @@ public class MainMenuPanel extends JPanel {
 		gbc_btnEditDebt.gridx = 4;
 		gbc_btnEditDebt.gridy = 3;
 		panel.add(btnEditDebt, gbc_btnEditDebt);
-		
-		JLabel lblExtraPayoff = new JLabel("Extra Payoff");
-		GridBagConstraints gbc_lblExtraPayoff = new GridBagConstraints();
-		gbc_lblExtraPayoff.anchor = GridBagConstraints.EAST;
-		gbc_lblExtraPayoff.insets = new Insets(0, 0, 5, 5);
-		gbc_lblExtraPayoff.gridx = 2;
-		gbc_lblExtraPayoff.gridy = 4;
-		panel.add(lblExtraPayoff, gbc_lblExtraPayoff);
-		
-		extraPayoffTextField = new JTextField();
-		GridBagConstraints gbc_extraPayoffTextField = new GridBagConstraints();
-		gbc_extraPayoffTextField.fill = GridBagConstraints.BOTH;
-		gbc_extraPayoffTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_extraPayoffTextField.gridx = 3;
-		gbc_extraPayoffTextField.gridy = 4;
-		panel.add(extraPayoffTextField, gbc_extraPayoffTextField);
-		extraPayoffTextField.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();

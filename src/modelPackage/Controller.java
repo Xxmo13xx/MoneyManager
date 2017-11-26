@@ -1,6 +1,7 @@
 package modelPackage;
 import java.util.*;
 import java.io.*;
+
 import org.dom4j.*;
 import org.dom4j.io.*;
 
@@ -516,6 +517,42 @@ public class Controller {
 	
 	public String[] getDebtSnowballDebtNames() {
 		String[] tempArray = debtSnowball.getDebtNames();
+		return tempArray;
+	}
+
+	public void setDebtSnowballPayoffAmount(double payoffAmount) {
+		// TODO Auto-generated method stub
+		debtSnowball.setPayoffAmount(payoffAmount);
+	}
+
+	public void runAnIteration() {
+		// TODO Auto-generated method stub
+		System.out.println("Debt Snowball ran iterations: " + debtSnowball.resultsArray.size());
+		debtSnowball.runAnIteration();
+		System.out.println("Debt Snowball ran iterations: " + debtSnowball.resultsArray.size());
+	}
+
+	public String[] getIterationArray(int iterationNumber) {
+		// TODO Auto-generated method stub
+		Double[] doubleArray = debtSnowball.getIterationResults(iterationNumber); 
+		String[] tempArray = new String[doubleArray.length];
+		tempArray[0] = Long.toString(Math.round(doubleArray[0]));
+		for(int x = 1; x < tempArray.length; x++){
+			tempArray[x] = Double.toString(doubleArray[x]);
+		}
+		return tempArray; 
+	}
+
+	public String[] getSnowballInitialValues() {
+		// TODO Auto-generated method stub
+		String[] tempArray = debtSnowball.getInitialValues();
+		
+		return tempArray; 
+	}
+
+	public String[] getSnowballMinPayments() {
+		// TODO Auto-generated method stub
+		String[] tempArray = debtSnowball.getMinimumPayments();
 		return tempArray;
 	}
 
